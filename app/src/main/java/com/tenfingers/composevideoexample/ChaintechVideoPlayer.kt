@@ -3,12 +3,17 @@ package com.tenfingers.composevideoexample
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import chaintech.videoplayer.host.DrmConfig
 import chaintech.videoplayer.host.MediaPlayerError
 import chaintech.videoplayer.host.MediaPlayerEvent
 import chaintech.videoplayer.host.MediaPlayerHost
 import chaintech.videoplayer.model.PlayerSpeed
 import chaintech.videoplayer.model.ScreenResize
+import chaintech.videoplayer.model.VideoPlayerConfig
 import chaintech.videoplayer.ui.video.VideoPlayerComposable
+import chaintech.videoplayer.util.ComposeResourceDrawable
 
 @Composable
 fun ChainTechVideoPlayer() {
@@ -20,7 +25,7 @@ fun ChainTechVideoPlayer() {
         initialVideoFitMode = ScreenResize.FIT,
         isLooping = false,
         startTimeInSeconds = 10f,
-        isFullScreen = true
+        isFullScreen = true,
     )
     videoPlayerHost.onEvent = { event ->
         when (event) {
@@ -79,6 +84,24 @@ fun ChainTechVideoPlayer() {
 
     VideoPlayerComposable(
         modifier = Modifier.fillMaxSize(),
-        playerHost = videoPlayerHost
+        playerHost = videoPlayerHost,
+        playerConfig = VideoPlayerConfig(
+            isPauseResumeEnabled = true,
+            isSeekBarVisible = true,
+            isDurationVisible = true,
+            seekBarThumbColor = Color.Red,
+            seekBarActiveTrackColor = Color.Red,
+            seekBarInactiveTrackColor = Color.White,
+            durationTextColor = Color.White,
+            seekBarBottomPadding = 10.dp,
+            pauseResumeIconSize = 40.dp,
+            isAutoHideControlEnabled = true,
+            controlHideIntervalSeconds = 5,
+            isFastForwardBackwardEnabled = true,
+            isSpeedControlEnabled = false,
+            isLiveStream = true
+//            playIconResource = ComposeResourceDrawable(Res.drawable.icn_play),
+//            pauseIconResource = ComposeResourceDrawable(Res.drawable.icn_pause),
+        )
     )
 }
